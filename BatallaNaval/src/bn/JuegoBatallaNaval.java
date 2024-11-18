@@ -22,7 +22,7 @@ public class JuegoBatallaNaval {
 		System.out.print("Opción: ");
 
 		int opcion = scanner.nextInt();
-		scanner.nextLine(); // Consumir la línea de entrada
+		scanner.nextLine();
 
 		switch (opcion) {
 		case 1 -> iniciarJuegoContraComputadora();
@@ -75,7 +75,10 @@ public class JuegoBatallaNaval {
 		}
 
 		ClienteBatallaNaval cliente = new ClienteBatallaNaval();
-		cliente.conectarServidor("localhost", PUERTO_MULTIJUGADOR);
+		System.out.print("Ingrese la dirección IP del servidor multijugador: ");
+		String ip = scanner.nextLine();
+		
+		cliente.conectarServidor(ip, PUERTO_MULTIJUGADOR);
 	}
 
 	private void conectarSegundoJugadorMultijugador() throws IOException {

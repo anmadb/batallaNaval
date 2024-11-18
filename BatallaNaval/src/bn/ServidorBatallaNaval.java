@@ -41,6 +41,10 @@ public class ServidorBatallaNaval {
 				String disparo = entradaJugador1.readLine();
 				procesarDisparo(tableroJugador2, disparo, salidaJugador1, salidaJugador2, "Jugador 1");
 				if (tableroJugador2.todosLosBarcosHundidos()) {
+					salidaJugador1.write("FIN_DEL_JUEGO\n");
+					salidaJugador1.flush();
+					salidaJugador2.write("FIN_DEL_JUEGO_PERDIDA\n");
+					salidaJugador2.flush();
 					salidaJugador1.write("¡Ganaste! Hundiste todos los barcos del Jugador 2.\n");
 					salidaJugador1.flush();
 					salidaJugador2.write("Perdiste. Todos tus barcos fueron hundidos.\n");
@@ -53,6 +57,10 @@ public class ServidorBatallaNaval {
 				String disparo = entradaJugador2.readLine();
 				procesarDisparo(tableroJugador1, disparo, salidaJugador2, salidaJugador1, "Jugador 2");
 				if (tableroJugador1.todosLosBarcosHundidos()) {
+					salidaJugador2.write("FIN_DEL_JUEGO\n");
+					salidaJugador2.flush();
+					salidaJugador1.write("FIN_DEL_JUEGO_PERDIDA\n");
+					salidaJugador1.flush();
 					salidaJugador2.write("¡Ganaste! Hundiste todos los barcos del Jugador 1.\n");
 					salidaJugador2.flush();
 					salidaJugador1.write("Perdiste. Todos tus barcos fueron hundidos.\n");

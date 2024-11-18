@@ -69,7 +69,7 @@ public class ServidorContraComputadora {
 		salida.write("Coloca tus barcos en el tablero.\n");
 		salida.flush();
 
-		int[] tamanosBarcos = { 4, 3, 2, 1 };
+		int[] tamanosBarcos = { 2, 1 };
 		for (int tamano : tamanosBarcos) {
 			boolean colocado = false;
 			while (!colocado) {

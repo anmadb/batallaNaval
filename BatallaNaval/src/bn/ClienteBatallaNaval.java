@@ -33,7 +33,7 @@ public class ClienteBatallaNaval {
 
 	private void configurarBarcos() throws IOException {
 		System.out.println(entrada.readLine());
-		int[] tamanosBarcos = { 4, 3, 2, 1 };
+		int[] tamanosBarcos = {2, 1 };
 
 		for (int tamano : tamanosBarcos) {
 			boolean colocado = false;
@@ -64,6 +64,9 @@ public class ClienteBatallaNaval {
 			System.out.println(mensaje);
 
 			if (mensaje.equals("FIN_DEL_JUEGO")) {
+				System.out.println("El juego ha terminado. Cerrando conexión...");
+				break;
+			}else if(mensaje.equals("FIN_DEL_JUEGO_PERDIDA")) {
 				System.out.println("El juego ha terminado. Cerrando conexión...");
 				break;
 			}
