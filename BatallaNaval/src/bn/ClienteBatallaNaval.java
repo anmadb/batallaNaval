@@ -65,9 +65,11 @@ public class ClienteBatallaNaval {
 
 			if (mensaje.equals("FIN_DEL_JUEGO")) {
 				System.out.println("El juego ha terminado. Cerrando conexión...");
+				System.out.println("GANASTE");
 				break;
 			}else if(mensaje.equals("FIN_DEL_JUEGO_PERDIDA")) {
 				System.out.println("El juego ha terminado. Cerrando conexión...");
+				System.out.println("PERDISTE");
 				break;
 			}
 
@@ -79,6 +81,7 @@ public class ClienteBatallaNaval {
 				int columna = Integer.parseInt(partes[2]);
 				boolean acierto = partes[3].equals("X");
 				tableroPropio.marcarDisparoEnemigo(fila, columna, acierto);
+				
 			}
 
 			System.out.println("Tu tablero:");
@@ -92,15 +95,23 @@ public class ClienteBatallaNaval {
 	}
 
 	private void realizarDisparo() throws IOException {
-		System.out.print("Ingresa tu disparo (formato: fila,columna): ");
-		String disparo = scanner.nextLine();
-		salida.write(disparo + "\n");
-		salida.flush();
+	    System.out.print("Ingresa tu disparo (formato: fila,columna): ");
+	    String disparo = scanner.nextLine();
+	    salida.write(disparo + "\n");
+	    salida.flush();
 
-		String[] partes = disparo.split(",");
-		int fila = Integer.parseInt(partes[0]);
-		int columna = Integer.parseInt(partes[1]);
+	   
+	    String respuesta = entrada.readLine();
+	    System.out.println(respuesta); 
 
-		tableroEnemigo.actualizarConFallo(fila, columna);
+	    String[] partes = disparo.split(",");
+	    int fila = Integer.parseInt(partes[0]);
+	    int columna = Integer.parseInt(partes[1]);
+
+	    if (respuesta.contains("¡Acierto!")) {
+	        tableroEnemigo.actualizarConAcierto(fila, columna);
+	    } else {
+	        tableroEnemigo.actualizarConFallo(fila, columna);
+	    }
 	}
 }

@@ -45,10 +45,7 @@ public class ServidorBatallaNaval {
 					salidaJugador1.flush();
 					salidaJugador2.write("FIN_DEL_JUEGO_PERDIDA\n");
 					salidaJugador2.flush();
-					salidaJugador1.write("¡Ganaste! Hundiste todos los barcos del Jugador 2.\n");
-					salidaJugador1.flush();
-					salidaJugador2.write("Perdiste. Todos tus barcos fueron hundidos.\n");
-					salidaJugador2.flush();
+					
 					break;
 				}
 			} else {
@@ -61,10 +58,7 @@ public class ServidorBatallaNaval {
 					salidaJugador2.flush();
 					salidaJugador1.write("FIN_DEL_JUEGO_PERDIDA\n");
 					salidaJugador1.flush();
-					salidaJugador2.write("¡Ganaste! Hundiste todos los barcos del Jugador 1.\n");
-					salidaJugador2.flush();
-					salidaJugador1.write("Perdiste. Todos tus barcos fueron hundidos.\n");
-					salidaJugador1.flush();
+					
 					break;
 				}
 			}
