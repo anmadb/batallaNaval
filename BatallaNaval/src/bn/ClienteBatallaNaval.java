@@ -32,30 +32,45 @@ public class ClienteBatallaNaval {
 	}
 
 	private void configurarBarcos() throws IOException {
-		System.out.println(entrada.readLine());
-		int[] tamanosBarcos = {2, 1 };
+	    System.out.println(entrada.readLine());
+	    int[] tamanosBarcos = {2, 1};
 
-		for (int tamano : tamanosBarcos) {
-			boolean colocado = false;
-			while (!colocado) {
-				System.out.println("Coloca un barco de tamaño " + tamano);
-				tableroPropio.mostrarTablero();
-				System.out.print("Ingresa fila,columna,orientación (H o V): ");
-				String[] entradaUsuario = scanner.nextLine().split(",");
-				int fila = Integer.parseInt(entradaUsuario[0]);
-				int columna = Integer.parseInt(entradaUsuario[1]);
-				boolean horizontal = entradaUsuario[2].equalsIgnoreCase("H");
+	    for (int tamano : tamanosBarcos) {
+	        boolean colocado = false;
+	        while (!colocado) {
+	            try {
+	                System.out.println("Coloca un barco de tamaño " + tamano);
+	                tableroPropio.mostrarTablero();
+	                System.out.print("Ingresa fila,columna,orientación (H o V): ");
+	                String input = scanner.nextLine();
+	                String[] entradaUsuario = input.split(",");
+	                if (entradaUsuario.length != 3) {
+	                    throw new IllegalArgumentException("Debe ingresar fila, columna y orientación (H o V).");
+	                }
 
-				if (tableroPropio.puedeColocarBarco(fila, columna, tamano, horizontal)) {
-					tableroPropio.colocarBarco(fila, columna, tamano, horizontal);
-					salida.write(fila + "," + columna + "," + (horizontal ? "H" : "V") + "\n");
-					salida.flush();
-					colocado = true;
-				} else {
-					System.out.println("No se puede colocar el barco aquí. Intenta de nuevo.");
-				}
-			}
-		}
+	                int fila = Integer.parseInt(entradaUsuario[0]);
+	                int columna = Integer.parseInt(entradaUsuario[1]);
+	                boolean horizontal = entradaUsuario[2].equalsIgnoreCase("H");
+
+	                if (fila < 0 || fila >= Tablero.TAMANNO || columna < 0 || columna >= Tablero.TAMANNO) {
+	                    throw new IllegalArgumentException("Las coordenadas deben estar entre 0 y " + (Tablero.TAMANNO - 1));
+	                }
+
+	                if (tableroPropio.puedeColocarBarco(fila, columna, tamano, horizontal)) {
+	                    tableroPropio.colocarBarco(fila, columna, tamano, horizontal);
+	                    salida.write(fila + "," + columna + "," + (horizontal ? "H" : "V") + "\n");
+	                    salida.flush();
+	                    colocado = true;
+	                } else {
+	                    System.out.println("No se puede colocar el barco aquí. Intenta de nuevo.");
+	                }
+	            } catch (NumberFormatException e) {
+	                System.out.println("Entrada no válida. Asegúrese de ingresar números válidos para fila y columna.");
+	            } catch (IllegalArgumentException e) {
+	                System.out.println(e.getMessage());
+	            }
+	        }
+	    }
 	}
 
 	private void escucharServidor() throws IOException {
@@ -95,23 +110,41 @@ public class ClienteBatallaNaval {
 	}
 
 	private void realizarDisparo() throws IOException {
-	    System.out.print("Ingresa tu disparo (formato: fila,columna): ");
-	    String disparo = scanner.nextLine();
-	    salida.write(disparo + "\n");
-	    salida.flush();
+	    boolean disparoValido = false;
+	    while (!disparoValido) {
+	        try {
+	            System.out.print("Ingresa tu disparo (formato: fila,columna): ");
+	            String disparo = scanner.nextLine();
+	            String[] partes = disparo.split(",");
+	            if (partes.length != 2) {
+	                throw new IllegalArgumentException("Debe ingresar fila y columna separadas por coma.");
+	            }
 
-	   
-	    String respuesta = entrada.readLine();
-	    System.out.println(respuesta); 
+	            int fila = Integer.parseInt(partes[0]);
+	            int columna = Integer.parseInt(partes[1]);
 
-	    String[] partes = disparo.split(",");
-	    int fila = Integer.parseInt(partes[0]);
-	    int columna = Integer.parseInt(partes[1]);
+	            if (fila < 0 || fila >= Tablero.TAMANNO || columna < 0 || columna >= Tablero.TAMANNO) {
+	                throw new IllegalArgumentException("Las coordenadas deben estar entre 0 y " + (Tablero.TAMANNO - 1));
+	            }
 
-	    if (respuesta.contains("¡Acierto!")) {
-	        tableroEnemigo.actualizarConAcierto(fila, columna);
-	    } else {
-	        tableroEnemigo.actualizarConFallo(fila, columna);
+	            salida.write(disparo + "\n");
+	            salida.flush();
+	            String respuesta = entrada.readLine();
+	            System.out.println(respuesta);
+
+	            if (respuesta.contains("¡Acierto!")) {
+	                tableroEnemigo.actualizarConAcierto(fila, columna);
+	            } else {
+	                tableroEnemigo.actualizarConFallo(fila, columna);
+	            }
+
+	            disparoValido = true;
+	        } catch (NumberFormatException e) {
+	            System.out.println("Entrada no válida. Asegúrese de ingresar números válidos para fila y columna.");
+	        } catch (IllegalArgumentException e) {
+	            System.out.println(e.getMessage());
+	        }
 	    }
 	}
+
 }

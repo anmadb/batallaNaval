@@ -14,22 +14,30 @@ public class JuegoBatallaNaval {
 	}
 
 	public void iniciarJuego() throws IOException {
-		System.out.println("¡Bienvenido a Batalla Naval!");
-		System.out.println("Seleccione una opción:");
-		System.out.println("1. Jugar contra la computadora");
-		System.out.println("2. Iniciar y jugar en modo multijugador (primer jugador)");
-		System.out.println("3. Conectar segundo jugador en modo multijugador");
-		System.out.print("Opción: ");
+	    System.out.println("¡Bienvenido a Batalla Naval!");
+	    int opcion = -1;
 
-		int opcion = scanner.nextInt();
-		scanner.nextLine();
+	    while (opcion < 1 || opcion > 3) {
+	        try {
+	            System.out.println("Seleccione una opción:");
+	            System.out.println("1. Jugar contra la computadora");
+	            System.out.println("2. Iniciar y jugar en modo multijugador (primer jugador)");
+	            System.out.println("3. Conectar segundo jugador en modo multijugador");
+	            System.out.print("Opción: ");
+	            opcion = Integer.parseInt(scanner.nextLine());
+	            if (opcion < 1 || opcion > 3) {
+	                System.out.println("Opción no válida. Por favor, elija una opción entre 1 y 3.");
+	            }
+	        } catch (NumberFormatException e) {
+	            System.out.println("Entrada no válida. Por favor, ingrese un número entre 1 y 3.");
+	        }
+	    }
 
-		switch (opcion) {
-		case 1 -> iniciarJuegoContraComputadora();
-		case 2 -> iniciarServidorYPrimerJugadorMultijugador();
-		case 3 -> conectarSegundoJugadorMultijugador();
-		default -> System.out.println("Opción no válida. Por favor, elija una opción entre 1 y 3.");
-		}
+	    switch (opcion) {
+	        case 1 -> iniciarJuegoContraComputadora();
+	        case 2 -> iniciarServidorYPrimerJugadorMultijugador();
+	        case 3 -> conectarSegundoJugadorMultijugador();
+	    }
 	}
 
 	private void iniciarJuegoContraComputadora() throws IOException {
