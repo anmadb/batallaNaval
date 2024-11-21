@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashSet;
+import java.util.Set;
  
 public class BatallaNavalInterfa {
     private JFrame frame;
@@ -14,6 +16,7 @@ public class BatallaNavalInterfa {
     private JButton[][] botonesJugador;
     private JButton[][] botonesComputadora;
     private JLabel statusLabel;
+    private Set<Integer> barcosColocados; // Para rastrear los tamaños de los barcos colocados por el jugador.
  
     public BatallaNavalInterfa() {
         tableroJugador = new Tablero();
@@ -22,6 +25,7 @@ public class BatallaNavalInterfa {
         tableroComputadora.colocarBarcoAleatorio(3);
         tableroComputadora.colocarBarcoAleatorio(2);
         tableroComputadora.colocarBarcoAleatorio(1);
+        barcosColocados = new HashSet<>(); // Inicializamos el set de tamaños colocados.
         initialize();
     }
  
@@ -106,6 +110,16 @@ public class BatallaNavalInterfa {
  
             if (tamanoStr != null) {
                 int tamano = Integer.parseInt(tamanoStr);
+ 
+                // Verificamos si el tamaño ya ha sido colocado
+                if (barcosColocados.contains(tamano)) {
+                    JOptionPane.showMessageDialog(frame,
+                            "Ya has colocado un barco de tamaño " + tamano + ".",
+                            "Error",
+                            JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+ 
                 int orientacion = JOptionPane.showConfirmDialog(frame, "¿Horizontal?", "Orientación",
                         JOptionPane.YES_NO_OPTION);
  
@@ -113,6 +127,7 @@ public class BatallaNavalInterfa {
  
                 if (tableroJugador.puedeColocarBarco(fila, columna, tamano, horizontal)) {
                     tableroJugador.colocarBarco(fila, columna, tamano, horizontal);
+                    barcosColocados.add(tamano); // Agregamos el tamaño al conjunto de barcos colocados.
                     actualizarTableroJugador();
                     statusLabel.setText("Barco de tamaño " + tamano + " colocado.");
                 } else {
