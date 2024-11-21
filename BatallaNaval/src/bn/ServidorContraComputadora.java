@@ -1,4 +1,4 @@
-package bn;
+/*package bn;
 
 import java.io.*;
 import java.net.*;
@@ -136,4 +136,4 @@ public class ServidorContraComputadora {
 		ServidorContraComputadora servidor = new ServidorContraComputadora();
 		servidor.iniciar();
 	}
-}
+}*/

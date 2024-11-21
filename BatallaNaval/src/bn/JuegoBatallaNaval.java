@@ -7,7 +7,7 @@ public class JuegoBatallaNaval {
 	private Scanner scanner;
 
 	private static final int PUERTO_MULTIJUGADOR = 12345;
-	private static final int PUERTO_CONTRA_COMPUTADORA = 12346;
+	//private static final int PUERTO_CONTRA_COMPUTADORA = 12346;
 
 	public JuegoBatallaNaval() {
 		scanner = new Scanner(System.in);

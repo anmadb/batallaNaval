@@ -1,4 +1,4 @@
-package bn;
+/*package bn;
 
 import java.util.HashSet;
 import java.util.Random;
@@ -78,4 +78,4 @@ public class BatallaNaval {
     public boolean todosLosBarcosHundidos(Tablero tablero) {
         return tablero.todosLosBarcosHundidos();
     }
-}
+}*/
