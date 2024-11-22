@@ -97,6 +97,8 @@ public class JuegoBatallaNaval {
             }
         });
         servidorThread.start(); // Inicia el hilo del servidor.
+        
+        conectarSegundoJugadorMultijugador();
     }
  
     // Método para conectarse al servidor como segundo jugador.
