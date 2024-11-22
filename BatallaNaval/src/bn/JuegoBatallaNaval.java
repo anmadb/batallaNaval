@@ -30,7 +30,18 @@ public class JuegoBatallaNaval {
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new GridLayout(3, 1, 10, 10)); // Diseño de rejilla (3 filas, 1 columna, con espacios).
  
-
+        // Botón para jugar contra la computadora.
+        JButton jugarContraComputadoraButton = new JButton("Jugar contra la computadora");
+        jugarContraComputadoraButton.addActionListener(e -> {
+            frame.dispose(); // Cierra el menú principal.
+            try {
+				iniciarJuegoContraComputadora();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} // Llama al método para iniciar el modo de juego contra la computadora.
+        });
+ 
         // Botón para iniciar el servidor multijugador (primer jugador).
         JButton primerJugadorMultijugadorButton = new JButton("Modo multijugador (iniciar servidor)");
         primerJugadorMultijugadorButton.addActionListener(e -> {
@@ -54,6 +65,7 @@ public class JuegoBatallaNaval {
         });
  
         // Añade los botones al panel.
+        buttonPanel.add(jugarContraComputadoraButton);
         buttonPanel.add(primerJugadorMultijugadorButton);
         buttonPanel.add(segundoJugadorMultijugadorButton);
  
@@ -62,6 +74,35 @@ public class JuegoBatallaNaval {
         frame.setVisible(true); // Muestra la ventana al usuario.
     }
  
+ // Método para iniciar el modo de juego contra la computadora (servidor y cliente locales).
+    private void iniciarJuegoContraComputadora() throws IOException {
+        JFrame frameComputadora = new JFrame("Juego Contra la Computadora");
+        frameComputadora.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frameComputadora.setSize(400, 200);
+        frameComputadora.setLayout(new BorderLayout());
+
+        JLabel statusLabel = new JLabel("Iniciando el servidor local...", SwingConstants.CENTER);
+        frameComputadora.add(statusLabel, BorderLayout.CENTER);
+
+        frameComputadora.setVisible(true);
+
+        // Hilo para manejar el servidor en segundo plano.
+        Thread servidorThread = new Thread(() -> {
+            ServidorBatallaNavalOrdenador servidor = new ServidorBatallaNavalOrdenador(); // Servidor local.
+			servidor.iniciarServidor(PUERTO_MULTIJUGADOR);
+			statusLabel.setText("Servidor local iniciado. Conectando cliente...");
+
+			// Después de iniciar el servidor, conecta al cliente.
+			SwingUtilities.invokeLater(() -> {
+			    ClienteBatallaNavalOrdenador cliente = new ClienteBatallaNavalOrdenador(); // Cliente local.
+				cliente.iniciarCliente("localhost", PUERTO_MULTIJUGADOR);
+
+				frameComputadora.dispose(); // Cierra el marco temporal.
+				new BatallaNavalInterfa(); // Abre la interfaz de juego contra la computadora.
+			});
+        });
+        servidorThread.start();
+    }
  
     // Método para iniciar el servidor multijugador y manejar al primer jugador.
     private void iniciarServidorYPrimerJugadorMultijugador() throws IOException {

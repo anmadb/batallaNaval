@@ -1,5 +1,7 @@
 package bn;
-  
+ 
+import java.util.Random;
+ 
 public class Tablero {
 	// El tamaño del tablero se establece como 10x10
 	static final int TAMANNO = 10;
@@ -65,6 +67,28 @@ public class Tablero {
 			}
 		}
 		return true; // Devuelve verdadero si el barco fue colocado correctamente
+	}
+ 
+	// Método que coloca un barco de tamaño aleatorio en el tablero
+	public boolean colocarBarcoAleatorio(int tamano) {
+		Random random = new Random();
+		boolean horizontal;
+		int fila, columna;
+		boolean colocado = false;
+ 
+		// Intenta colocar el barco aleatoriamente en el tablero
+		while (!colocado) {
+			fila = random.nextInt(TAMANNO); // Genera una fila aleatoria
+			columna = random.nextInt(TAMANNO); // Genera una columna aleatoria
+			horizontal = random.nextBoolean(); // Determina si el barco será horizontal o vertical
+ 
+			// Si se puede colocar el barco en la posición aleatoria, lo coloca
+			if (puedeColocarBarco(fila, columna, tamano, horizontal)) {
+				colocarBarco(fila, columna, tamano, horizontal);
+				colocado = true; // El barco ha sido colocado correctamente
+			}
+		}
+		return colocado; // Retorna si el barco fue colocado correctamente
 	}
  
 	// Método que simula recibir un disparo en las coordenadas dadas
