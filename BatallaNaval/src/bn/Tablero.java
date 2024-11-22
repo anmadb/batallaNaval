@@ -135,6 +135,7 @@ public class Tablero {
 			System.out.println();
 		}
 	}
+	
 
 	public boolean todosLosBarcosHundidos() {
 		for (int i = 0; i < TAMANNO; i++) {

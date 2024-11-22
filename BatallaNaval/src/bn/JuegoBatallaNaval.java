@@ -81,11 +81,16 @@ public class JuegoBatallaNaval {
                 ServidorBatallaNaval servidor = new ServidorBatallaNaval();
                 servidor.iniciar();
                 statusLabel.setText("Servidor iniciado. Conecte un segundo jugador.");
+                
+                
             } catch (IOException e) {
                 statusLabel.setText("Error al iniciar el servidor: " + e.getMessage());
             }
         });
         servidorThread.start();
+        
+        conectarSegundoJugadorMultijugador();
+        
     }
  
     private void conectarSegundoJugadorMultijugador() throws IOException {
