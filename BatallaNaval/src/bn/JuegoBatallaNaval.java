@@ -92,16 +92,17 @@ public class JuegoBatallaNaval {
 			servidor.iniciarServidor(PUERTO_MULTIJUGADOR);
 			statusLabel.setText("Servidor local iniciado. Conectando cliente...");
 
-			// Después de iniciar el servidor, conecta al cliente.
-			SwingUtilities.invokeLater(() -> {
-			    ClienteBatallaNavalOrdenador cliente = new ClienteBatallaNavalOrdenador(); // Cliente local.
-				cliente.iniciarCliente("localhost", PUERTO_MULTIJUGADOR);
-
-				frameComputadora.dispose(); // Cierra el marco temporal.
-				new BatallaNavalInterfa(); // Abre la interfaz de juego contra la computadora.
-			});
+			
         });
         servidorThread.start();
+        
+        
+     // Después de iniciar el servidor, conecta al cliente.
+        ClienteBatallaNavalOrdenador cliente = new ClienteBatallaNavalOrdenador(); // Cliente local.
+		cliente.iniciarCliente("localhost", PUERTO_MULTIJUGADOR);
+
+		frameComputadora.dispose(); // Cierra el marco temporal.
+		new BatallaNavalInterfa(); // Abre la interfaz de juego contra la computadora.
     }
  
     // Método para iniciar el servidor multijugador y manejar al primer jugador.

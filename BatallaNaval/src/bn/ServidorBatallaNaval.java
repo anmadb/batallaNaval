@@ -86,15 +86,12 @@ public class ServidorBatallaNaval {
     // Método para configurar los barcos de un jugador
     private void configurarTableros(Tablero tablero, BufferedWriter salida, BufferedReader entrada, String jugador)
             throws IOException {
-        salida.write(jugador + ", coloca tus barcos en el tablero.\n");
-        salida.flush();
         int[] tamanosBarcos = {2, 1}; // Tamaños de los barcos que deben colocarse
 
         for (int tamano : tamanosBarcos) {
             boolean colocado = false;
             while (!colocado) { // Intentar hasta que el barco sea colocado correctamente
-                salida.write("Coloca un barco de tamaño " + tamano + ". Ingresa fila,columna,orientación (H o V):\n");
-                salida.flush();
+                
                 String[] partes = entrada.readLine().split(","); // Leer las coordenadas y orientación del cliente
                 int fila = Integer.parseInt(partes[0]);
                 int columna = Integer.parseInt(partes[1]);
@@ -103,13 +100,8 @@ public class ServidorBatallaNaval {
                 // Verificar si el barco puede colocarse en las coordenadas dadas
                 if (tablero.puedeColocarBarco(fila, columna, tamano, horizontal)) {
                     tablero.colocarBarco(fila, columna, tamano, horizontal); // Colocar el barco
-                    colocado = true;
-                    salida.write("Barco colocado.\n");
-                    salida.flush();
-                } else {
-                    salida.write("No se puede colocar el barco aquí. Intenta de nuevo.\n");
-                    salida.flush();
-                }
+                    colocado = true;        
+                } 
             }
         }
     }
