@@ -79,7 +79,7 @@ public class BatallaNavalInterfa {
                     boton.addActionListener(new ColocarBarcoInter(i, j)); // Agrega acción para colocar barcos
                 } else {
                     boton.setBackground(Color.GRAY); // Color inicial para el tablero de la computadora
-                    boton.addActionListener(new DispararAction(i, j)); // Agrega acción para disparar
+                    boton.addActionListener(new Disparar(i, j)); // Agrega acción para disparar
                 }
 
                 botones[i][j] = boton; // Almacena el botón en la matriz
@@ -148,11 +148,11 @@ public class BatallaNavalInterfa {
     }
 
     // Clase interna para manejar los disparos del jugador en el tablero de la computadora
-   /* private class DispararAction implements ActionListener {
+    private class Disparar implements ActionListener {
         private final int fila; // Fila del botón seleccionado
         private final int columna; // Columna del botón seleccionado
 
-        public DispararAction(int fila, int columna) {
+        public Disparar(int fila, int columna) {
             this.fila = fila; // Inicializa la fila
             this.columna = columna; // Inicializa la columna
         }
@@ -178,7 +178,7 @@ public class BatallaNavalInterfa {
                 disparoComputadora(); // Turno de la computadora
             }
         }
-    }*/
+    }
 
     // Método que gestiona el disparo aleatorio de la computadora
     private void disparoComputadora() {
