@@ -30,11 +30,11 @@ public class BatallaNavalInterfa {
         tableroComputadora.colocarBarcoAleatorio(1);
 
         barcosColocados = new HashSet<>(); // Se inicializa el conjunto para rastrear los tamaños de barcos colocados
-        initialize(); // Se configura y despliega la interfaz gráfica
+        inicioInter(); // Se configura y despliega la interfaz gráfica
     }
 
     // Método para inicializar la interfaz gráfica del juego
-    private void initialize() {
+    private void inicioInter() {
         frame = new JFrame("Batalla Naval"); // Se crea la ventana principal del juego
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Configura el cierre del programa al cerrar la ventana
         frame.setSize(800, 600); // Define el tamaño de la ventana
@@ -76,7 +76,7 @@ public class BatallaNavalInterfa {
 
                 if (esJugador) {
                     boton.setBackground(Color.CYAN); // Color inicial para el tablero del jugador
-                    boton.addActionListener(new ColocarBarcoAction(i, j)); // Agrega acción para colocar barcos
+                    boton.addActionListener(new ColocarBarcoInter(i, j)); // Agrega acción para colocar barcos
                 } else {
                     boton.setBackground(Color.GRAY); // Color inicial para el tablero de la computadora
                     boton.addActionListener(new DispararAction(i, j)); // Agrega acción para disparar
@@ -97,11 +97,11 @@ public class BatallaNavalInterfa {
     }
 
     // Clase interna para manejar la colocación de barcos en el tablero del jugador
-    private class ColocarBarcoAction implements ActionListener {
+    private class ColocarBarcoInter implements ActionListener {
         private final int fila; // Fila del botón seleccionado
         private final int columna; // Columna del botón seleccionado
 
-        public ColocarBarcoAction(int fila, int columna) {
+        public ColocarBarcoInter(int fila, int columna) {
             this.fila = fila; // Inicializa la fila
             this.columna = columna; // Inicializa la columna
         }
@@ -148,7 +148,7 @@ public class BatallaNavalInterfa {
     }
 
     // Clase interna para manejar los disparos del jugador en el tablero de la computadora
-    private class DispararAction implements ActionListener {
+   /* private class DispararAction implements ActionListener {
         private final int fila; // Fila del botón seleccionado
         private final int columna; // Columna del botón seleccionado
 
@@ -178,7 +178,7 @@ public class BatallaNavalInterfa {
                 disparoComputadora(); // Turno de la computadora
             }
         }
-    }
+    }*/
 
     // Método que gestiona el disparo aleatorio de la computadora
     private void disparoComputadora() {

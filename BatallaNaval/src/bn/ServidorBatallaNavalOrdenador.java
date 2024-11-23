@@ -52,7 +52,7 @@ public class ServidorBatallaNavalOrdenador {
 
     // Método para procesar un disparo enviado por el cliente.
     private String procesarDisparo(String mensaje) {
-        // Aquí se podría implementar la lógica del juego.
+        
         System.out.println("Procesando disparo: " + mensaje); // Muestra el disparo recibido.
         return "Resultado del disparo en " + mensaje; // Devuelve una respuesta simulada.
     }
